@@ -29,11 +29,12 @@ exports.insertEvent = (event) => {
     event.description,
     event.date,
     event.time,
+    event.address,
   ];
 
   const query = format(
     `
-    INSERT INTO events(title, location, image, description, date, time)
+    INSERT INTO events(title, location, image, description, date, time, address)
     VALUES (%L)
     RETURNING *;`,
     formattedEvent

@@ -14,7 +14,8 @@ const seed = ({ eventsData, usersData, staffData }) => {
                         image VARCHAR DEFAULT 'https://i.postimg.cc/xjg6rZ6w/default.jpg',
                         description VARCHAR NOT NULL,
                         date DATE NOT NULL,
-                        time TIME NOT NULL
+                        time TIME NOT NULL,
+                        address VARCHAR NOT NULL
                     );
                 `),
         db.query(`
@@ -39,15 +40,16 @@ const seed = ({ eventsData, usersData, staffData }) => {
 
       if (eventsData.length) {
         const insertEventsQuery = format(
-          `INSERT INTO events (title, location, image, description, date, time) VALUES %L;`,
+          `INSERT INTO events (title, location, image, description, date, time, address) VALUES %L;`,
           eventsData.map(
-            ({ title, location, image, description, date, time }) => [
+            ({ title, location, image, description, date, time, address }) => [
               title,
               location,
               image,
               description,
               date,
               time,
+              address,
             ]
           )
         );
