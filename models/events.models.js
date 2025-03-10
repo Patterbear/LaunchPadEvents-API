@@ -16,7 +16,9 @@ exports.selectEvents = (sort_by, location) => {
     queryStr += ` ORDER BY date ASC`;
   }
 
-  return db.query(queryStr, queryParams).then(({ rows }) => rows);
+  return db.query(queryStr, queryParams).then((result) => {
+    return [result.rows];
+  });
 };
 
 exports.selectEventById = (event_id) => {
