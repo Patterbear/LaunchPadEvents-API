@@ -7,7 +7,9 @@ const {
 } = require("../models/events.models");
 
 exports.getEvents = (req, res, next) => {
-  selectEvents()
+  const { sort_by, location } = req.query;
+
+  selectEvents(sort_by, location)
     .then((result) => {
       const events = result[0];
 

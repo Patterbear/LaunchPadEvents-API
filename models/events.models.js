@@ -1,10 +1,22 @@
 const db = require("../db/connection");
 const format = require("pg-format");
 
-exports.selectEvents = () => {
-  return db.query(`SELECT * FROM events;`).then((result) => {
-    return [result.rows];
-  });
+exports.selectEvents = (sort_by, location) => {
+  let queryStr = `SELECT * FROM events`;
+  const queryParams = [];
+
+  if (location) {
+    queryStr += ` WHERE location = $1`;
+    queryParams.push(location);
+  }
+
+  if (sort_by === "latest") {
+    queryStr += ` ORDER BY date DESC`;
+  } else {
+    queryStr += ` ORDER BY date ASC`;
+  }
+
+  return db.query(queryStr, queryParams).then(({ rows }) => rows);
 };
 
 exports.selectEventById = (event_id) => {
