@@ -28,6 +28,7 @@ describe("GET /api/events", () => {
             description: expect.any(String),
             date: expect.any(String),
             time: expect.any(String),
+            address: expect.any(String),
           });
 
           // checks date and time are valid
@@ -58,6 +59,7 @@ describe("GET /api/events/:event_id", () => {
           description: expect.any(String),
           date: expect.any(String),
           time: expect.any(String),
+          address: expect.any(String),
         });
 
         // checks date and time are valid
@@ -86,6 +88,7 @@ describe("POST /api/events", () => {
       description: "A test event.",
       date: "2025-02-26T00:00:00.000Z",
       time: "06:00:00",
+      address: "1 Test Road, Teston",
     };
 
     return request(app)
@@ -106,6 +109,7 @@ describe("POST /api/events", () => {
           description: "A test event.",
           date: "2025-02-26T00:00:00.000Z",
           time: "06:00:00",
+          address: "1 Test Road, Teston",
         });
       });
   });
@@ -117,6 +121,7 @@ describe("POST /api/events", () => {
       description: "A test event.",
       date: "2025-02-26T23:00:00.000Z",
       time: "06:00:00",
+      address: "1 Test Road, Teston",
     };
 
     return request(app)
@@ -129,7 +134,7 @@ describe("POST /api/events", () => {
           .get("/api/events")
           .expect(200)
           .then((response) => {
-            const latestEvent = response.body.events.at(-1);
+            const latestEvent = response.body.events.at(0);
 
             expect(latestEvent).toMatchObject({
               event_id: expect.any(Number),
@@ -139,6 +144,7 @@ describe("POST /api/events", () => {
               description: "A test event.",
               date: "2025-02-26T00:00:00.000Z",
               time: "06:00:00",
+              address: "1 Test Road, Teston",
             });
           });
       });
@@ -198,6 +204,7 @@ describe("PATCH /api/events/:event_id", () => {
           description: expect.any(String),
           date: expect.any(String),
           time: expect.any(String),
+          address: expect.any(String),
         });
       });
   });
@@ -228,6 +235,7 @@ describe("PATCH /api/events/:event_id", () => {
               description: "A pub crawl across all the pubs in Kettering!",
               date: expect.any(String),
               time: expect.any(String),
+              address: expect.any(String),
             });
           });
       });
